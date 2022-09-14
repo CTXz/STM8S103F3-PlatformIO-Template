@@ -30,7 +30,7 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm8s_it.h"
+#include <stm8s_it.h>
 
 /** @addtogroup Template_Project
   * @{
