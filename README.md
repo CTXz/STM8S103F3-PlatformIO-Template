@@ -4,12 +4,12 @@ The following directory provides a template project to quickly get started with 
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Getting Started: stm8_conf.h](#getting-started-stm8_confh)
-- [Prepping the interrupts: stm8s_it.c/stm8s_it.h](#prepping-the-interrupts-stm8s_itcstm8s_ith)
+- [Getting Started: src/stm8_conf.h](#getting-started-srcstm8_confh)
+- [Prepping the interrupts: src/stm8s_it.c, [include/stm8s_it.h](include/stm8s_it.h)](#prepping-the-interrupts-srcstm8s_itc-includestm8s_ith)
 	- [A technical note on the interrupt handlers](#a-technical-note-on-the-interrupt-handlers)
 - [What's next?](#whats-next)
 
-## Getting Started: stm8_conf.h
+## Getting Started: [src/stm8_conf.h](src/stm8_conf.h)
 
 The file `stm8_conf.h` is a configuration file for the STM8S standard peripheral library. It contains a list of headers, or
 as some refer to them, "modules", that include a variety of function calls to interact with the STM8S peripherals.
@@ -39,7 +39,7 @@ Some modules may be greyed out. Those are modules that are not supported by the 
 > For example, the `stm8s_timer4.h` module is not supported by the STM8S103F3 (as it only has two timers) yet it is not greyed out in the `stm8_conf.h` file.
 > To avoid confusion, it is highly recommended selecting the STM8S103F3 chip in the STM8CubeMX software to see which peripherals are actually supported.
 
-## Prepping the interrupts: stm8s_it.c/stm8s_it.h
+## Prepping the interrupts: [src/stm8s_it.c](src/stm8s_it.c), [include/stm8s_it.h](include/stm8s_it.h)
 
 The file `stm8s_it.c` and `stm8s_it.h` are files that declare and define IRQ handlers. The `stm8s_it.h` header contains
 the necessary IRQ handler prototypes and links them to their appropriate interrupt vectors. The `stm8s_it.c` file contains the
