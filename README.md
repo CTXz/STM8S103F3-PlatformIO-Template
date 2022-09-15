@@ -11,7 +11,7 @@ The following directory provides a template project to quickly get started with 
 
 ## Getting Started: [src/stm8_conf.h](src/stm8_conf.h)
 
-The file `stm8_conf.h` is a configuration file for the STM8S standard peripheral library. It contains a list of headers, or
+The [`stm8_conf.h`](src/stm8s_conf.h) header serves as a configuration file for the STM8S standard peripheral library. It contains a list of headers, or
 as some refer to them, "modules", that include a variety of function calls to interact with the STM8S peripherals.
 
 To name a few:
@@ -25,46 +25,47 @@ To name a few:
 [This website](https://documentation.help/STM8S/) provides a somewhat messy reference for the STM8S standard peripheral library modules.
 Alternatively, you can opt to browse through the headers yourself (For ex. [here](https://github.com/bschwand/STM8-SPL-SDCC/tree/master/Libraries/STM8S_StdPeriph_Driver/inc))
 
-> **Note:** It is required to include the `stm8_conf.h` header file within the `src/` directory of your project, else the compiler will
+> **Note:** It is required to include the [`stm8_conf.h`](src/stm8s_conf.h) header file within the `src/` directory of your project, else the compiler will
 > complain. Placing the file in the `include/` directory will not work!
 
-Depending on the project, you must uncomment the necessary modules you need in `stm8_conf.h`. For example, if you want to use the GPIO functions, you
+Depending on the project, you must uncomment the necessary modules you need in [`stm8_conf.h`](src/stm8s_conf.h). For example, if you want to use the GPIO functions, you
 must uncomment the line:
 
-`#include "stm8s_gpio.h"`
+```c
+// #include "stm8s_gpio.h"
+```
 
 Some modules may be greyed out. Those are modules that are not supported by the STM8S103F3. As an example, the `stm8s_uart2.h` module is not supported by the STM8S103F3.
 
-> **Note:** Whether intentional or not, some modules that are not supported by the STM8S103F3 may not be greyed out in the `stm8_conf.h` file.
-> For example, the `stm8s_timer4.h` module is not supported by the STM8S103F3 (as it only has two timers) yet it is not greyed out in the `stm8_conf.h` file.
+> **Note:** Whether intentional or not, some modules that are not supported by the STM8S103F3 may not be greyed out in the [`stm8_conf.h`](src/stm8s_conf.h) header.
+> For example, the `stm8s_timer4.h` module is not supported by the STM8S103F3 (as it only has two timers) yet it is not greyed out in [`stm8_conf.h`](src/stm8s_conf.h).
 > To avoid confusion, it is highly recommended selecting the STM8S103F3 chip in the STM8CubeMX software to see which peripherals are actually supported.
 
 ## Prepping the interrupts: [src/stm8s_it.c](src/stm8s_it.c), [include/stm8s_it.h](include/stm8s_it.h)
 
-The file `stm8s_it.c` and `stm8s_it.h` are files that declare and define IRQ handlers. The `stm8s_it.h` header contains
-the necessary IRQ handler prototypes and links them to their appropriate interrupt vectors. The `stm8s_it.c` file contains the
+The [`stm8s_it.c`](src/stm8s_it.c) and [`stm8s_it.h`](include/stm8s_it.h) files declare and define IRQ handlers. The [`stm8s_it.h`](include/stm8s_it.h) header contains
+the necessary IRQ handler prototypes and links them to their appropriate interrupt vectors. The [`stm8s_it.c`](src/stm8s_it.c) file contains the
 user defined code for the IRQ handlers.
 
-To put it simply, the `stm8s_it.c` file is where you will write your interrupt handlers. The `stm8s_it.h` remains untouched and must simply be
-included in your main file.
+To put it simply, the [`stm8s_it.c`](src/stm8s_it.c) file is where you will write your interrupt handlers. The [`stm8s_it.h`](include/stm8s_it.h) header remains untouched and must simply be included in your main file.
 
-> **Note:** Not including the `stm8s_it.h` header file in your main file will result in the interrupt handlers not being called!
+> **Note:** Not including the [`stm8s_it.h`](include/stm8s_it.h) header file in your main file will result in the interrupt handlers not being called!
 
-> **Note:** Should you not be require interrupts throughout your projects, `stm8s_it.h` and `stm8s_it.c` may be omitted. 
+> **Note:** Should you not be require interrupts throughout your projects, [`stm8s_it.h`](include/stm8s_it.h) and [`stm8s_it.c`](src/stm8s_it.c) may be omitted. 
 > That being said, it does not harm to keep them as they will barely take up any program space.
 
-As an example, suppose we have a LED connected to pin `PB5` (Such as the built-in LED on the generic blue STM8S103F3P6 breakout boards). We also
-have a button connected to any pin on `PORTD`, with the internal pull-up resistor enabled. For the sake of simplicity, we will reserve the full `PORTD` for the button so that we must not test which pin was toggled.
+As an example, suppose we have a LED connected to pin `B5` (Such as the built-in LED on the generic blue STM8S103F3P6 breakout boards). We also
+have a button connected to any pin on `PORTD`, with the internal pull-up resistor enabled. For the sake of simplicity, we will reserve the full `PORTD` bank for the button so that we must not test which pin was toggled.
 
 Now we wish to toggle the LED whenever the button is released (that is, on rising edge since we have the internal pull-up resistor enabled). 
 
-We begin by including the `stm8s_exti.h` module in our `stm8_conf.h` file. Uncomment the following line inside `stm8_conf.h`:
+We begin by including the `stm8s_exti.h` module in our [`stm8_conf.h`](src/stm8s_conf.h) file. Uncomment the following line inside [`stm8_conf.h`](src/stm8s_conf.h):
 
 ```c
 // #include "stm8s_exti.h"
 ```
 
-Within our main file, we must first include the `stm8s_it.h` header file (This template project already does so):
+Within our main file, we must first include the [`stm8s_it.h`](include/stm8s_it.h) header file (This template project already does so):
 
 ```c
 #include "stm8s_it.h"
@@ -110,7 +111,7 @@ int main() {
 }
 ```
 
-Now for the last part, we must write the interrupt handler. Within the `stm8s_it.c` file, search for the following handler:
+Now for the last part, we must write the interrupt handler. Within the [`stm8s_it.c`](src/stm8s_it.c) file, search for the following handler:
 
 ```c
 /**
@@ -144,7 +145,7 @@ And that's it! Our LED should now toggle whenever the button is released.
 
 ### A technical note on the interrupt handlers
 
-The procedures above may seem a bit convoluted. Why do we need to declare the interrupt handlers in the `stm8s_it.h` file and then define them in the `stm8s_it.c` file? Why can't we just define the interrupt handlers in the main file?
+The procedures above may seem a bit convoluted. Why do we need to declare the interrupt handlers in the [`stm8s_it.h`](include/stm8s_it.h) file and then define them in the [`stm8s_it.c`](src/stm8s_it.c) file? Why can't we just define the interrupt handlers in the main file?
 
 In theory we can ommit the `stm8s_it` files and declare the handler within the main file using the `INTERRUPT_HANDLER` macro, declared in `stm8s.h`, which for SDCC expands to:
 ```c
