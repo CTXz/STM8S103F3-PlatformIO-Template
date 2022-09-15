@@ -5,7 +5,7 @@ The following directory provides a template project to quickly get started with 
 ## Table of Contents <!-- omit in toc -->
 
 - [Getting Started: src/stm8_conf.h](#getting-started-srcstm8_confh)
-- [Prepping the interrupts: src/stm8s_it.c, [include/stm8s_it.h](include/stm8s_it.h)](#prepping-the-interrupts-srcstm8s_itc-includestm8s_ith)
+- [Prepping the interrupts: src/stm8s_it.c, include/stm8s_it.h](#prepping-the-interrupts-srcstm8s_itc-includestm8s_ith)
 	- [A technical note on the interrupt handlers](#a-technical-note-on-the-interrupt-handlers)
 - [What's next?](#whats-next)
 
