@@ -1,11 +1,14 @@
+> **This repo has been archived and replaced in favor of my more generic [STM8S Project Template Repository](https://github.com/CTXz/STM8S-Project-Template).**
+> **PlatformIO's build system didn't provide enough flexibility to implement dead code elimination, wich became a serious issue when working with the SPL.**
+
 # Template Project <!-- omit in toc -->
 
 The following directory provides a template project to quickly get started with STM8S103F3 development in platformio.
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Getting Started: src/stm8_conf.h](#getting-started-srcstm8_confh)
-- [Prepping the interrupts: src/stm8s_it.c, include/stm8s_it.h](#prepping-the-interrupts-srcstm8s_itc-includestm8s_ith)
+- [Getting Started: src/stm8\_conf.h](#getting-started-srcstm8_confh)
+- [Prepping the interrupts: src/stm8s\_it.c, include/stm8s\_it.h](#prepping-the-interrupts-srcstm8s_itc-includestm8s_ith)
 	- [A technical note on the interrupt handlers](#a-technical-note-on-the-interrupt-handlers)
 - [What's next?](#whats-next)
 
